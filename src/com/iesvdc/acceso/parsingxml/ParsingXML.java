@@ -15,11 +15,17 @@ import org.w3c.dom.Node;
 public class ParsingXML {
     static Document documento;
     
-    void recursiveWalker (Node nodo){
+    static void recursiveWalker (Node nodo){
         if(nodo.hasChildNodes()){
             recursiveWalker(nodo.getFirstChild());
         }
-        nodo.getNextSibling()
+        do {
+            System.out.println("Nodo tipo : " +  nodo.getNodeType()+ " Nombre: " + nodo.getNodeName());
+            
+            
+            
+            nodo = nodo.getNextSibling();
+        } while (nodo.getNextSibling()!=null);
     }
     /**
      * @param args the command line arguments
@@ -29,11 +35,11 @@ public class ParsingXML {
     //if(args.length==1){
         try {
             Document documento = DomUtil.parse("books.xml",false);
-            System.out.println("El tipo de nodo es : " + documento.getNodeType());
-            System.out.println("El tipo del primer nodo hijo es : " + documento.getFirstChild().getNodeType());
-            System.out.println("El tipo del nodo raiz es : " + documento.getDocumentElement().getNodeType());
-            System.out.println("El nombre del nodo raiz es : " + documento.getDocumentElement().getNodeName());
-            System.out.println("El nombre del nodo raiz es : " + documento.getDocumentElement().getNodeName());
+            //System.out.println("El tipo de nodo es : " + documento.getNodeType());
+            //System.out.println("El tipo del primer nodo hijo es : " + documento.getFirstChild().getNodeType());
+            //System.out.println("El tipo del nodo raiz es : " + documento.getDocumentElement().getNodeType());
+            //System.out.println("El nombre del nodo raiz es : " + documento.getDocumentElement().getNodeName());
+            //System.out.println("El nombre del nodo raiz es : " + documento.getDocumentElement().getNodeName());
 
             // vamos a buscar nietos, si los hay mostramos la etiqueta
             
@@ -51,6 +57,7 @@ public class ParsingXML {
                 }
             }
             
+            recursiveWalker(raiz);
             
         } 
         catch (Exception ex) {
